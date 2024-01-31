@@ -1,0 +1,50 @@
+version: '3.4'
+services:
+  client_1:
+    build: ./client_1
+    container_name: client_1
+    environment:
+      - VITE_APP_SOCKET_URL=http://localhost:6600
+      - VITE_APP_AUTH_KEY=${AUTH_TOKEN_1}
+    ports:
+      - '9001:3000'
+    expose:
+      - '3000'
+    networks:
+      - integration
+    volumes:
+      - ./client_1:/usr/src/app
+
+  client_2:
+    build: ./client_2
+    container_name: client_2
+    environment:
+      - VITE_APP_SOCKET_URL=http://localhost:6600
+      - VITE_APP_AUTH_KEY=${AUTH_TOKEN_1}
+    ports:
+      - '9002:3000'
+    expose:
+      - '3000'
+    networks:
+      - integration
+    volumes:
+      - ./client_2:/usr/src/app
+
+  client_3:
+    build: ./client_3
+    container_name: client_3
+    environment:
+      - VITE_APP_SOCKET_URL=http://localhost:6600
+      - VITE_APP_AUTH_KEY=${AUTH_TOKEN_2}
+    ports:
+      - '9003:3000'
+    expose:
+      - '3000'
+    networks:
+      - integration
+    volumes:
+      - ./client_3:/usr/src/app
+
+networks:
+  integration:
+    driver: bridge
